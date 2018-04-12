@@ -11,6 +11,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +20,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class View extends JFrame{
-    class GamePanel extends JPanel {
+    class GamePanel extends JPanel{
         Direction direct = Direction.SOUTHEAST;
         int posX;
         int posY;
@@ -38,16 +40,12 @@ public class View extends JFrame{
         public Dimension getPreferredSize() {
             return new Dimension(frameStartSize, frameStartSize);
         }
-
     }
 
     GamePanel panel = new GamePanel();
     JButton start_btn = new JButton("Stop");
-    JButton up = new JButton("Up");
-    JButton down = new JButton("Down");
-    JButton left = new JButton("Left");
-    JButton right = new JButton("Right");
-
+    KeyEvent a;
+    
     BufferedImage[][] walkPics;
 
     final int frameCount = 10;
@@ -60,8 +58,6 @@ public class View extends JFrame{
         start_btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                //Pop-up dialouge box
                 if(wether_draw) {
                     wether_draw = false;
                     start_btn.setText("Start");
@@ -71,47 +67,47 @@ public class View extends JFrame{
                 }
             }
         });
-        up.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                direction_control = 0;
-            }
-        });
-        down.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                direction_control = 4;
-            }
-        });
-        left.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                direction_control = 6;
-            }
-        });
-        right.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                direction_control = 2;
-            }
-        });
+        
+        panel.addKeyListener(new KeyListener() {
+   
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					 direction_control = 2;
+				}
+				else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+					 direction_control = 6;
+				}
+				else if(e.getKeyCode() == KeyEvent.VK_UP) {
+					direction_control = 0;
+				}
+				else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+					direction_control = 4;
+				}
+			}
 
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				
+			}
+        });
+        panel.setFocusable(true);
+        
         panel.setBackground(Color.gray);
         panel.add(start_btn);
-        panel.add(up);
-        panel.add(down);
-        panel.add(left);
-        panel.add(right);
         this.getContentPane().add(panel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(frameStartSize, frameStartSize);
         this.setVisible(true);
         pack();
     }
-
-
-
-
 
     private void loadAnimationPngs() {
         BufferedImage []img = new BufferedImage[8];
