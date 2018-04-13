@@ -28,9 +28,9 @@ public class View extends JFrame{
         public GamePanel() {
             super();
         }
-        public void paint(Graphics g) {
-            super.paint(g);
-            //System.out.println(posX+","+posY);
+		public void paint(Graphics g) {
+			super.paint(g);
+			//System.out.println(posX+","+posY);
             g.drawImage(walkPics[direct.ordinal()][picSeq % frameCount],posX,posY,Color.gray,this);
 
             //g.drawImage(walkPics[0][9],0,0,Color.gray,this);
@@ -131,8 +131,10 @@ public class View extends JFrame{
             }
         }
     }
-    public void update(int X,int Y,Direction direction) {
-        panel.posX = X;
+    public void update(int X,int Y,Direction direction, boolean toTurn) {
+        if(toTurn)
+			direction_control = -1;
+		panel.posX = X;
         panel.posY = Y;
         if(panel.direct != direction)
             panel.picSeq = 0;

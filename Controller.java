@@ -20,8 +20,8 @@ public class Controller {
         drawAction = new AbstractAction(){
             public void actionPerformed(ActionEvent e){
                 if(view.wether_draw) {
-                    model.updateLocationAndDirection(view.getWidth(), view.getHeight(),view.direction_control);
-                    view.update(model.getX(), model.getY(), model.getDirect());
+					model.updateLocationAndDirection(view.getWidth(), view.getHeight(),view.direction_control);
+					view.update(model.getX(), model.getY(), model.getDirect(), model.toTurn());
                 }
             }
         };
