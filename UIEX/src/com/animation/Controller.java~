@@ -17,9 +17,9 @@ public class Controller {
 	private Model model;
 	private View view;
 	boolean wether_draw = true;        //to start or stop
-        int direction_control = -1;     //to record the control to direction
-        final int drawDelay = 30; //msec
-        Action drawAction;
+    int direction_control = -1;     //to record the control to direction
+    final int drawDelay = 30; //msec
+    Action drawAction;
 
 	public Controller(){
 		view = new View();
